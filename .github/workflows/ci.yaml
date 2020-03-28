@@ -71,6 +71,7 @@ jobs:
           cp -r node_modules/vscode-minimist result/node_modules
           cp -r node_modules/is-wsl result/node_modules
       - name: Upload result
+        if: secrets.upload == 'true'
         uses: actions/upload-artifact@v1
         with:
           name: vscode-compiled
