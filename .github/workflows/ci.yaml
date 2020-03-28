@@ -33,7 +33,19 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 10
+      - name: Get yarn cache directory path
+        id: yarn-cahce-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+      - name: Setup cache for yarn
+        uses: actions/cache@v1
+        id: yarn-cache
+        with:
+          path: ${{ steps.yarn-cache-dir-path.output.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
       - name: Install dependencies
+        if: steps.yarn-cache.outputs.cache-hit != 'true'
         run: |
           cd vscode
           yarn --frozen-lockfile
@@ -41,6 +53,7 @@ jobs:
         run: yarn compile
       - name: Copy result files into result directory
         run: |
+          cd vscode
           mkdir result
           cp package.json result
           cp -r out result
@@ -59,5 +72,5 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: vscode-compiled
-          path: result
+          path: vscode/result
           
