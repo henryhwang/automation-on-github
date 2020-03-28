@@ -72,7 +72,7 @@ jobs:
       - name: Create gzip tar file for result
         run: |
           cd vscode
-          tar cvzf result.tar.gz result
+          tar czf result.tar.gz result
           ls -l result.tar.gz
 
 
