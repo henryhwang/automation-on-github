@@ -19,10 +19,10 @@ jobs:
       UPLOAD: ${{ secrets.upload == 'true' }}
     steps:
       - name: Check Job's secrets
-        if: env.UPLOAD
+        if: env.UPLOAD == 'true'
         run: echo $UPLOAD
       - name: Check Step's secrets
-        if: env.ss
+        if: env.ss == 'true'
         env:
           ss: ${{ secrets.upload == 'true' }}
         run: echo $ss
@@ -92,7 +92,7 @@ jobs:
           tar czf result.tar.gz result
           ls -l result.tar.gz
       - name: Upload result
-        if: env.sss
+        if: env.sss == 'true'
         env:
           sss: ${{ secrets.upload == 'true' }}	
         uses: actions/upload-artifact@v1	
