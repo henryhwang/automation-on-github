@@ -16,9 +16,10 @@ jobs:
     env:
       CHILD_CONCURRENCY: 1
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      sss: ${{ secrets.upload }}
     steps:
       - name: Check Secrets
-        if: ss == 'true'
+        if: env.sss || env.ss == 'true'
         env:
           ss: ${{ secrets.upload }}
         run: echo $ss
