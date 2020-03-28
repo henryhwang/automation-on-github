@@ -20,7 +20,7 @@ jobs:
       - name: Check Secrets
         env:
           ss: ${{ secrets.upload }}
-        run: echo ss
+        run: echo $ss
       - uses: actions/checkout@v2
         with:
           path: vscode
@@ -59,11 +59,11 @@ jobs:
       - name: Install dependencies
         run: |
           cd vscode
-          yarn --frozen-lockfile
+          yarn --frozen-lockfile &> /dev/null
       - name: Compile sources
         run: |
           cd vscode
-          yarn compile
+          yarn compile &> /dev/null
       - name: Copy result files into result directory
         run: |
           cd vscode
