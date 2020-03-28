@@ -44,6 +44,14 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-yarn-
+      - name: Setup cache for node_modules
+        uses: actions/cache@v1
+        id: node_modules-cache
+        with:
+          path: vscode/node_modules
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-node_modules-
       - name: Install dependencies
         run: |
           cd vscode
@@ -75,7 +83,6 @@ jobs:
           tar czf result.tar.gz result
           ls -l result.tar.gz
       - name: Upload result	
-        if: secrets.upload == 'true'	
         uses: actions/upload-artifact@v1	
         with:	
           name: vscode-tar	
