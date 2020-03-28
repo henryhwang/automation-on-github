@@ -69,5 +69,10 @@ jobs:
           cp -r node_modules/opn result/node_modules
           cp -r node_modules/vscode-minimist result/node_modules
           cp -r node_modules/is-wsl result/node_modules
+      - name: Create gzip tar file for result
+        run: |
+          cd vscode
+          tar cvzf result.tar.gz result
+
 
           
