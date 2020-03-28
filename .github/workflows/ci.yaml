@@ -92,7 +92,9 @@ jobs:
           tar czf result.tar.gz result
           ls -l result.tar.gz
       - name: Upload result
-        if: env.UPLOAD	
+        if: env.sss
+        env:
+          sss: ${{ secrets.upload == 'true' }}	
         uses: actions/upload-artifact@v1	
         with:	
           name: vscode-tar	
