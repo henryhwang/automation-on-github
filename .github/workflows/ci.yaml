@@ -12,4 +12,52 @@ on:
       
 jobs:
   compile:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
+    env:
+      CHILD_CONCURRENCY: 1
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          path: /vscode
+          repository: henryhwang/vscode
+      - name: Setup build environment
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libxkbfile-dev pkg-config libsecret-1-dev libxss1 dbus xvfb libgtk-3-0 libgbm1
+          sudo cp build/azure-pipelines/linux/xvfb.init /etc/init.d/xvfb
+          sudo chmod +x /etc/init.d/xvfb
+          sudo update-rc.d xvfb defaults
+          sudo service xvfb start
+      - name: Setup node environment
+        uses: actions/setup-node@v1
+        with:
+          node-version: 10
+      - name: Install dependencies
+        run: |
+          cp /vscode
+          yarn --frozen-lockfile
+      - name: Compile sources
+        run: yarn compile
+      - name: Copy result files into result directory
+        run: |
+          mkdir result
+          cp package.json result
+          cp -r out result
+          cp -r scripts result
+          cp -r extensions result
+          mkdir result/src
+          cp -r src/vs result/src
+          mkdir result/remote
+          cp -r remote/web result/remote
+          cp -r resources result
+          mkdir result/node_modules
+          cp -r node_modules/opn result/node_modules
+          cp -r node_modules/vscode-minimist result/node_modules
+          cp -r node_modules/is-wsl result/node_modules
+      - name: Upload result
+        uses: actions/upload-artifact@v1
+        with:
+          name: vscode-compiled
+          path: result
+          
