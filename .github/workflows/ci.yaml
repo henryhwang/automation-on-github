@@ -74,6 +74,12 @@ jobs:
           cd vscode
           tar czf result.tar.gz result
           ls -l result.tar.gz
+      - name: Upload result	
+        if: secrets.upload == 'true'	
+        uses: actions/upload-artifact@v1	
+        with:	
+          name: vscode-tar	
+          path: vscode/result.tar.gz
 
 
           
