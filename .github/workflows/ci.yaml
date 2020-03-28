@@ -19,7 +19,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          path: /vscode
+          path: vscode
           repository: henryhwang/vscode
       - name: Setup build environment
         run: |
@@ -35,7 +35,7 @@ jobs:
           node-version: 10
       - name: Install dependencies
         run: |
-          cp /vscode
+          cp vscode
           yarn --frozen-lockfile
       - name: Compile sources
         run: yarn compile
