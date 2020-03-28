@@ -16,9 +16,12 @@ jobs:
     env:
       CHILD_CONCURRENCY: 1
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      sss: ${{ secrets.upload }}
+      UPLOAD: ${{ secrets.upload }}
     steps:
-      - name: Check Secrets
+      - name: Check Job's secrets
+        if: env.UPLOAD == 'true'
+        run: echo $UPLOAD
+      - name: Check Step's secrets
         if: env.ss == 'true'
         env:
           ss: ${{ secrets.upload }}
@@ -88,7 +91,8 @@ jobs:
           cd vscode
           tar czf result.tar.gz result
           ls -l result.tar.gz
-      - name: Upload result	
+      - name: Upload result
+        if: env.UPLOAD == 'true'	
         uses: actions/upload-artifact@v1	
         with:	
           name: vscode-tar	
