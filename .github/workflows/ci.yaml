@@ -26,6 +26,11 @@ jobs:
         env:
           ss: ${{ secrets.upload }}
         run: echo $ss
+      - name: Check secrets for Job or Step
+        if: env.UPLOAD || env.ss == 'true'
+        env:
+          ss: ${{ secrets.upload }}
+        run: echo $UPLOAD $ss
       - uses: actions/checkout@v2
         with:
           path: vscode
