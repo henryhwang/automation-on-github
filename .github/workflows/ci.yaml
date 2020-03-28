@@ -73,6 +73,7 @@ jobs:
         run: |
           cd vscode
           tar cvzf result.tar.gz result
+          ls -l result.tar.gz
 
 
           
