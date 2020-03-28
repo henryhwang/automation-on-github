@@ -19,7 +19,7 @@ jobs:
       sss: ${{ secrets.upload }}
     steps:
       - name: Check Secrets
-        if: env.sss || env.ss == 'true'
+        if: env.ss == 'true'
         env:
           ss: ${{ secrets.upload }}
         run: echo $ss
