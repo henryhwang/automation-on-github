@@ -18,6 +18,10 @@ jobs:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       UPLOAD: ${{ secrets.upload == 'true' }}
     steps:
+      - name: Check contains function
+        env:
+          s_upload: ${{ contains(secrets, 'upload') }}
+        run: echo $s_upload
       - name: Check Job's secrets
         if: env.UPLOAD == 'true'
         run: echo $UPLOAD
