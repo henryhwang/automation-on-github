@@ -18,7 +18,7 @@ jobs:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: Check Secrets
-        if: secrets.upload == 'true'
+        if: ${{ secrets.upload }} == 'true'
         env:
           ss: ${{ secrets.upload }}
         run: echo $ss
