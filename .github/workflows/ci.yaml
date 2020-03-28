@@ -50,7 +50,9 @@ jobs:
           cd vscode
           yarn --frozen-lockfile
       - name: Compile sources
-        run: yarn compile
+        run: |
+          cd vscode
+          yarn compile
       - name: Copy result files into result directory
         run: |
           cd vscode
