@@ -17,6 +17,10 @@ jobs:
       CHILD_CONCURRENCY: 1
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
+      - name: Check Secrets
+        env:
+          ss: ${{ secrets.upload }}
+        run: echo ss
       - uses: actions/checkout@v2
         with:
           path: vscode
