@@ -11,5 +11,4 @@ jobs:
         env:
           GITHUB_EVENT_INFOS: ${{ toJson(github.event) }}
         run: |
-          echo $GITHUB_EVENT_INFOS
-          echo ${{ github.event.head_commit.message }}
+          echo "${{ github.event.head_commit.message }}"
