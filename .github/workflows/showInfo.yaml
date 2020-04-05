@@ -9,5 +9,5 @@ jobs:
     steps:
       - name: github event
         env:
-          GITHUB_EVENT_INFOS: ${{ toJson(github.evnet) }}
+          GITHUB_EVENT_INFOS: ${{ toJson(github.event) }}
         run: echo $GITHUB_EVENT_INFOS
