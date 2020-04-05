@@ -1,0 +1,9 @@
+name: show Info
+on:
+  push
+  
+jobs:
+  - name: Show event info
+    env:
+      GITHUB_EVENT_INFOS: ${{ toJson(github.evnet) }}
+    run: echo $GITHUB_EVENT_INFOS
