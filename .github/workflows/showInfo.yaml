@@ -1,9 +1,13 @@
 name: show Info
 on:
-  push
+  [push]
   
 jobs:
-  - name: Show event info
-    env:
-      GITHUB_EVENT_INFOS: ${{ toJson(github.evnet) }}
-    run: echo $GITHUB_EVENT_INFOS
+  showEvent:
+    name: Show event info
+    runs-on: [ubuntu-18.04]
+    steps:
+      - name: github event
+        env:
+          GITHUB_EVENT_INFOS: ${{ toJson(github.evnet) }}
+        run: echo $GITHUB_EVENT_INFOS
